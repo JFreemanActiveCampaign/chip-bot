@@ -1,5 +1,5 @@
 var config = require('./config');
-var Ziggy = require('./ziggy').Ziggy;
+var Ziggy = require('ziggy').Ziggy;
 
 var chip = new Ziggy({
         server: 'irc.freenode.net'

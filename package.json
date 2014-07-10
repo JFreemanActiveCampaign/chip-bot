@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/danecando/chip-bot",
   "dependencies": {
-    "redis": "^0.10.3"
+    "redis": "^0.10.3",
+    "ziggy": ""
   }
 }
