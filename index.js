@@ -1,3 +1,6 @@
+var request = require('request');
+var cheerio = require('cheerio');
+
 var config = require('./config');
 var Ziggy = require('ziggy').Ziggy;
 
@@ -18,6 +21,20 @@ chip.on('ready', function() {
 chip.on('message', function(user, channel, text) {
 
     var words = text.split(" ");
+
+    // Display page titles
+    words.forEach(function(word) {
+        if (word.substr(0, 7) === 'http://') {
+            request(word, function (err, response, page) {
+                if (err) {
+                    throw err;
+                }
+
+                $ = cheerio.load(page);
+                chip.say(channel,'Title: ' + $('title').text());
+            });
+        }
+    });
 
     words.forEach(function (word) {
 
