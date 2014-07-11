@@ -1,3 +1,4 @@
+var c = require('irc-colors');
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -31,7 +32,7 @@ chip.on('message', function(user, channel, text) {
                 }
 
                 $ = cheerio.load(page);
-                chip.say(channel,'Title: ' + $('title').text());
+                chip.say(channel, c.red('title: ') + c.bold($('title').text()));
             });
         }
     });
