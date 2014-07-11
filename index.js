@@ -24,7 +24,7 @@ chip.on('message', function(user, channel, text) {
 
     // Display page titles
     words.forEach(function(word) {
-        if (word.substr(0, 7) === 'http://') {
+        if (word.substr(0, 7) === 'http://' || word.substr(0, 8) === 'https://') {
             request(word, function (err, response, page) {
                 if (err) {
                     throw err;
