@@ -1,64 +1,8 @@
-var color = require('irc-colors');
-var request = require('request');
-var cheerio = require('cheerio');
-
+var irc = require('irc');
 var config = require('./config');
-var Ziggy = require('ziggy').Ziggy;
 
-var chip = new Ziggy({
-        server: 'irc.freenode.net'
-        , nickname: 'chippah'
-        , username: 'chippah'
-        , realName: 'Chip Chipperson'
-        , channels: ['#danecando', '#learnjavascript', '#forum-channel', '#conversely']
-    });
-
-chip.start()
-
-chip.on('ready', function() {
-    chip.say('nickserv', 'identify ' + config.nick_pass);
-});
-
-chip.on('message', function(user, channel, text) {
-
-    var words = text.split(" ");
-
-    // Display page titles
-    words.forEach(function(word) {
-        if (word.substr(0, 7) === 'http://' || word.substr(0, 8) === 'https://') {
-            request(word, function (err, response, page) {
-                if (err) {
-                    throw err;
-                }
-
-                $ = cheerio.load(page);
-                if ($('title').text().length > 2) {
-                    chip.say(channel, color.red('title: ') + color.bold($('title').text()));
-                }
-            });
-        }
-    });
-
-    words.forEach(function (word) {
-
-        switch (word) {
-
-            case config.bot_nick:
-                chip.say(channel, 'fawk you caswksucka!');
-                break;
-
-            case 'chip':
-                chip.say(channel, 'whats that?');
-                break;
-
-            case 'chippin':
-                chip.say(channel, 'fuckkkk yeahhh!');
-                break;
-        }
-
-    });
-});
-
+// bot features
+var linkinfo = require('./lib/linkinfo');
 
 //var redis = require('redis');
 //var url = require('url');
@@ -66,3 +10,61 @@ chip.on('message', function(user, channel, text) {
 //var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 //client.auth(redisURL.auth.split(":")[1]);
 
+var options = {
+    userName: config.bot_nick,
+    realName: 'Lyle Chipperson',
+    port: 6667,
+    debug: true,
+    channels: ['#danecando', '#learnjavascript', '#conversely']
+}
+
+// create irc connection
+var client = new irc.Client(config.server, config.bot_nick, options);
+
+
+// catch and log any error events
+client.addListener('error', function(message) {
+    console.log('error: ', message);
+});
+
+
+// setup bot after connection
+client.addListener('registered', function(message) {
+
+    // identify bot nick
+    client.say('nickserv', 'identify ' + config.nick_pass);
+
+    // check for owner set a variable
+
+
+});
+
+
+// listen for ping events to run checks and make updates every couple of minutes
+client.addListener('ping', function(server) {
+
+});
+
+
+// handle message events
+client.addListener('message#', function(nick, to, text, message) {
+
+
+    // parse chat messages
+    var words = text.split(" ");
+    words.forEach(function(word) {
+
+        // check if message contains a link
+        if (word.substr(0, 7) === 'http://' || word.substr(0, 8) === 'https://') {
+
+            linkinfo.pageTitle(word, function(title) {
+
+                // echo web page title
+                client.say(to, irc.colors.wrap('light_red', title));
+            });
+        }
+
+        // add code for trolling
+    });
+
+});
