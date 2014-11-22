@@ -42,6 +42,7 @@ client.addListener('registered', function(message) {
         setInterval(function() {
             var random = Math.floor(Math.random() * (data.length - 0) + 0);
             client.say('jarofghosts', data[random].text);
+            client.say('danecando', data[random].text);
         }, 60000)
     });
 
