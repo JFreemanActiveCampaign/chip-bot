@@ -42,7 +42,7 @@ client.addListener('registered', function(message) {
         setInterval(function() {
             var random = Math.floor(Math.random() * (data.length - 0) + 0);
             client.say('#learnjavascript', data[random].text);
-        }, 60000 * 10)
+        }, 60000 * 60)
     });
 
 });
