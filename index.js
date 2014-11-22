@@ -19,7 +19,7 @@ var options = {
     realName: 'Lyle Chipperson',
     port: 6667,
     debug: true,
-    channels: ['#danecando']
+    channels: ['#danecando, #learnjavascript, #teamljs']
 }
 
 // create irc connection
@@ -41,9 +41,8 @@ client.addListener('registered', function(message) {
     twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
         setInterval(function() {
             var random = Math.floor(Math.random() * (data.length - 0) + 0);
-            client.say('jarofghosts', data[random].text);
-            client.say('danecando', data[random].text);
-        }, 60000)
+            client.say('#learnjavascript', data[random].text);
+        }, 60000 * 10)
     });
 
 });
