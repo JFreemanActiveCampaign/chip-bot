@@ -19,7 +19,7 @@ var options = {
     realName: 'Lyle Chipperson',
     port: 6667,
     debug: true,
-    channels: ['#danecando, #learnjavascript, #teamljs']
+    channels: ['#learnjavascript']
 }
 
 // create irc connection
