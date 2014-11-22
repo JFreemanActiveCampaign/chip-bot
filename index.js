@@ -38,12 +38,12 @@ client.addListener('registered', function(message) {
     // identify bot nick
     client.say('nickserv', 'identify ' + config.nick_pass);
 
-    twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
-        setInterval(function() {
-            var random = Math.floor(Math.random() * (data.length - 0) + 0);
-            client.say('#learnjavascript', data[random].text);
-        }, 60000 * 60)
-    });
+    //twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
+    //    setInterval(function() {
+    //        var random = Math.floor(Math.random() * (data.length - 0) + 0);
+    //        client.say('#learnjavascript', data[random].text);
+    //    }, 60000 * 60)
+    //});
 
 });
 
