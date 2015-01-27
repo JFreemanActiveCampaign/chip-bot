@@ -19,7 +19,7 @@ var options = {
     realName: 'Lyle Chipperson',
     port: 6667,
     debug: true,
-    channels: ['#learnjavascript']
+    channels: ['#learnjavascript', '#danecando']
 }
 
 // create irc connection
@@ -116,8 +116,6 @@ client.addListener('message#', function(nick, to, text, message) {
         if (word.substr(0, 7) === 'http://' || word.substr(0, 8) === 'https://') {
 
             linkinfo.pageTitle(word, function(title) {
-
-                // echo web page title
                 client.say(to, irc.colors.wrap('light_red', title));
             });
         }
@@ -130,7 +128,14 @@ client.addListener('message#', function(nick, to, text, message) {
         if (word === '#chip') {
             twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
                 var random = Math.floor(Math.random() * (data.length - 0) + 0);
-                client.say('#learnjavascript', data[random].text);
+
+                data[random].text.forEach(function(word) {
+                    if (word.charAt(0) === '@') {
+                        word = nick;
+                    }
+                })
+
+                client.say('#danecando', data[random].text);
             });
         }
 
