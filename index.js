@@ -129,13 +129,15 @@ client.addListener('message#', function(nick, to, text, message) {
             twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
                 var random = Math.floor(Math.random() * (data.length - 0) + 0);
 
-                data[random].text.forEach(function(word) {
+                var words = data[random].text.split(" ");
+                words.forEach(function(word) {
                     if (word.charAt(0) === '@') {
                         word = nick;
                     }
                 })
 
-                client.say('#danecando', data[random].text);
+                var message = words.join(" ");
+                client.say('#danecando', message);
             });
         }
 
