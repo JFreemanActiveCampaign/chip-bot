@@ -109,6 +109,7 @@ client.addListener('message#', function(nick, to, text, message) {
 
     // parse chat messages
     var words = text.split(" ");
+    var said = false;
     words.forEach(function(word) {
 
         // check if message contains a link
@@ -121,18 +122,15 @@ client.addListener('message#', function(nick, to, text, message) {
             });
         }
 
-        var said = false
         if (word === 'chip' && !said) {
-            said = true
+            said = true;
             client.say(to, 'whats that?');
         }
 
-        if (word === '#chippah') {
+        if (word === '#chip') {
             twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
-                setInterval(function() {
-                    var random = Math.floor(Math.random() * (data.length - 0) + 0);
-                    client.say('#learnjavascript', data[random].text);
-                }, 60000 * 60)
+                var random = Math.floor(Math.random() * (data.length - 0) + 0);
+                client.say('#learnjavascript', data[random].text);
             });
         }
 
