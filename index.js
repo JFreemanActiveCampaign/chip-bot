@@ -121,7 +121,9 @@ client.addListener('message#', function(nick, to, text, message) {
             });
         }
 
-        if (word === 'chip') {
+        var said = false
+        if (word === 'chip' && !said) {
+            said = true
             client.say(to, 'whats that?');
         }
 
