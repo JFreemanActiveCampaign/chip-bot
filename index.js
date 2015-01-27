@@ -127,7 +127,7 @@ client.addListener('message#', function(nick, to, text, message) {
             client.say(to, 'whats that?');
         }
 
-        if (word === '!chippah') {
+        if (word === '#chippah') {
             twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
                 setInterval(function() {
                     var random = Math.floor(Math.random() * (data.length - 0) + 0);
