@@ -121,6 +121,19 @@ client.addListener('message#', function(nick, to, text, message) {
             });
         }
 
+        if (word === 'chip') {
+            client.say(to, 'whats that?');
+        }
+
+        if (word === '!chippah') {
+            twitter.get('statuses/user_timeline', { screen_name: 'ChipChipperson', count: 200 }, function(err, data, response) {
+                setInterval(function() {
+                    var random = Math.floor(Math.random() * (data.length - 0) + 0);
+                    client.say('#learnjavascript', data[random].text);
+                }, 60000 * 60)
+            });
+        }
+
 //        troll.respond(word.toLowerCase(), function(response) {
 //
 //            client.say(to, response);
