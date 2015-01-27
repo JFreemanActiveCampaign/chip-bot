@@ -130,9 +130,9 @@ client.addListener('message#', function(nick, to, text, message) {
                 var random = Math.floor(Math.random() * (data.length - 0) + 0);
 
                 var words = data[random].text.split(" ");
-                words.forEach(function(word) {
+                words.forEach(function(word, index, theArray) {
                     if (word.charAt(0) === '@') {
-                        word = nick;
+                        theArray[index] = nick;
                     }
                 })
 
