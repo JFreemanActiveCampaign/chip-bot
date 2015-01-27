@@ -137,7 +137,7 @@ client.addListener('message#', function(nick, to, text, message) {
                 })
 
                 var message = words.join(" ");
-                client.say('#danecando', message);
+                client.say('#learnjavscript', message);
             });
         }
 
