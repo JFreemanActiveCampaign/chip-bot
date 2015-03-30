@@ -141,6 +141,22 @@ client.addListener('message#', function(nick, to, text, message) {
             });
         }
 
+        if (word === '#quin') {
+            twitter.get('statuses/user_timeline', { screen_name: 'iamcolinquinn', count: 200 }, function(err, data, response) {
+                var random = Math.floor(Math.random() * (data.length - 0) + 0);
+
+                var words = data[random].text.split(" ");
+                words.forEach(function(word, index, theArray) {
+                    if (word.charAt(0) === '@') {
+                        theArray[index] = nick;
+                    }
+                })
+
+                var message = words.join(" ");
+                client.say('#learnjavascript', message);
+            });
+        }
+
 //        troll.respond(word.toLowerCase(), function(response) {
 //
 //            client.say(to, response);
