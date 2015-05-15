@@ -116,7 +116,7 @@ client.addListener('message#', function(nick, to, text, message) {
         if (word.substr(0, 7) === 'http://' || word.substr(0, 8) === 'https://') {
 
             linkinfo.pageTitle(word, function(title) {
-                client.say(to, irc.colors.wrap('light_red', title));
+                client.say(to, irc.colors.wrap('light_red', title.trim()));
             });
         }
 
